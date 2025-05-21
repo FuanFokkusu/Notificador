@@ -7,5 +7,5 @@ public abstract class NotificationFilter {
         this.nextFilter = next;
     }
 
-    public abstract boolean validate(Notification notificacion);
+    public abstract boolean validate(NotificationStrategy notificacion, String message);
 }

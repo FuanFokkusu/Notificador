@@ -32,7 +32,7 @@ public class SendNotificationCommand implements NotificationCommand {
 
         // Validar con la cadena de filtros
         for (NotificationFilter filter : filters) {
-            if (!filter.validate(notification)) {
+            if (!filter.validate((NotificationStrategy) notification, notification.getRawMessage())) {
                 notification.setStatus(NotificationStatus.FAILED_VALIDATION);
                 eventManager.notify(notification);
                 return;

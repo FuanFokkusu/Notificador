@@ -5,17 +5,27 @@ import java.util.List;
 public class EmptyMessageFilter extends NotificationFilter {
 
     @Override
-    public boolean validate(Notification notificacion) {
+    public boolean validate(NotificationStrategy notificacion, String message) {
+
+
+        User user = UserManager.getInstance().getUsers().isEmpty() ? null : UserManager.getInstance().getUsers().get(0); // Obtener el primer usuario de la lista
         // Lista simulada de usuarios bloqueados
-        List<String> usuariosBloqueados = List.of("spammer@mail.com", "usuario123");
-
-        String usuario = notificacion.getUser().getContactInfo();
-
-        if (usuariosBloqueados.contains(usuario)) {
-            System.out.println("❌ Usuario bloqueado detectado: " + usuario);
+        if (message.isEmpty()) {
+            System.out.println("❌ Mensaje vacío detectado para el usuario: " + user.getName());
             return false; // No pasa el filtro
+        } else {
+            System.out.println("✅ Mensaje no vacío para el usuario: " + user.getName());
+            try {
+                notificacion.sendNotification(user, message);
+            } catch (NotificationException e) {
+                throw new RuntimeException(e);
+            }
         }
 
-        return true; // Pasa el filtro
+
+
+
+
+        return true;
     }
 }

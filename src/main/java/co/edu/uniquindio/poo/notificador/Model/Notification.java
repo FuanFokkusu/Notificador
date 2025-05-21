@@ -54,8 +54,9 @@ public class  Notification {
 
     public void send() {
         // Validar primero
+        String message = this.rawMessage;
         for (NotificationFilter filter : filters) {
-            if (!filter.validate(this)) {
+            if (!filter.validate((NotificationStrategy) this, message) ) {
                 this.status = NotificationStatus.FAILED_VALIDATION;
                 eventManager.notify(this);
                 return;

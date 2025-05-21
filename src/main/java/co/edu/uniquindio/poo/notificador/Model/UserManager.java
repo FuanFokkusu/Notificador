@@ -43,7 +43,7 @@ public class UserManager{
 
         users = UserManager.getInstance().getUsers();
         AdminUser adminUser = new AdminUser("admin", "Jose", "@yourMom69");
-        ClientUser clientUser = new ClientUser("client", "Jose", "@yourMom96");
+        ClientUser clientUser = new ClientUser("client", "JoseManuel", "@yourMom96");
         ClientUser clientUser2 = new ClientUser("client2", "Maria", "@yourMom96");
         Auditor auditor = new Auditor(new ArrayList<String>(), new ArrayList<User>());
         PushNotification pushNotification = new PushNotification();
@@ -56,6 +56,7 @@ public class UserManager{
 
         addUser(adminUser);
         addUser(clientUser);
+        addUser(clientUser2);
 
     }
 }

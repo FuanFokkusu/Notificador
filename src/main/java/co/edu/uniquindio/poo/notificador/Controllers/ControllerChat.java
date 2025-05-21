@@ -45,6 +45,8 @@ public class ControllerChat {
     }
 
     public void handleSendButton(ActionEvent actionEvent) {
+        EmptyMessageFilter filterEmpty = new EmptyMessageFilter();
+        BlockedUserFilter blockedUserFilter = new BlockedUserFilter();
         String tipoDeNotificacion = serverComboBox.getSelectionModel().getSelectedItem().toString();
         String message = messageInput.getText();
         message = "Este mensaje sera enviado por: " + tipoDeNotificacion + " " + message;
@@ -53,8 +55,11 @@ public class ControllerChat {
         } else {
             switch (tipoDeNotificacion) {
                 case "email":
+
                     for (User user : UserManager.getInstance().getUsers()) {
                         EmailNotification emailNotification = new EmailNotification();
+                        filterEmpty.validate(emailNotification, message);
+                        blockedUserFilter.validate(emailNotification, message);
                         emailNotification.sendNotification(user, message);
                         chatArea.appendText(MensajeField.getText() + ": Estimado " + user.getName() + " El dia de hoy tiene usted una notificación que dice lo siguiente " + message + "\n");
                         messageInput.clear();
@@ -64,6 +69,8 @@ public class ControllerChat {
 
                 for (User user : UserManager.getInstance().getUsers()) {
                     SMSNotification smsNotification = new SMSNotification();
+                    filterEmpty.validate(smsNotification, message);
+                    blockedUserFilter.validate(smsNotification, message);
                     smsNotification.sendNotification(user, message);
                     chatArea.appendText(MensajeField.getText() + ": Estimado " + user.getName() + " El dia de hoy tiene usted una notificación que dice lo siguiente " + message + "\n");
                     messageInput.clear();
@@ -72,6 +79,8 @@ public class ControllerChat {
                 case "push":
                     for (User user : UserManager.getInstance().getUsers()) {
                         PushNotification pushNotification = new PushNotification();
+                        filterEmpty.validate(pushNotification, message);
+                        blockedUserFilter.validate(pushNotification, message);
                     pushNotification.sendNotification(user, message);
                         chatArea.appendText(MensajeField.getText() + ": Estimado " + user.getName() + " El dia de hoy tiene usted una notificación que dice lo siguiente " + message + "\n");
                         messageInput.clear();
