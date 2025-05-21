@@ -1,11 +1,17 @@
 package co.edu.uniquindio.poo.notificador.Model;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter @Setter @Builder
 public class Auditor implements NotificationObserver {
     // Lista para guardar los registros de auditoría
     private List<String> registros = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 
     // Método que se ejecuta cuando llega una notificación
     @Override

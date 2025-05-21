@@ -8,7 +8,7 @@ package co.edu.uniquindio.poo.notificador.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Notification {
+public class  Notification {
     private User user;
     private String rawMessage;
     private String formattedMessage;

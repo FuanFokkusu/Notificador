@@ -37,7 +37,8 @@ public class Alert {
 
     public static void showAlert(String title, String message) {
 
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(type.equals("error") ? javafx.scene.control.Alert.AlertType.ERROR : javafx.scene.control.Alert.AlertType.INFORMATION);
+
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert("error".equals(type) ? javafx.scene.control.Alert.AlertType.ERROR : javafx.scene.control.Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText("Notificador");
         alert.setContentText(message);

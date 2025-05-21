@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.notificador.Controllers.ControllerChat">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.notificador.Controllers.ControllerChat">
     <top>
         <VBox spacing="5.0" BorderPane.alignment="CENTER">
             <children>
@@ -22,15 +22,15 @@
                 </Label>
                 <HBox alignment="CENTER_LEFT" spacing="10.0">
                     <children>
-                        <Label text="Server:" />
-                        <ComboBox fx:id="serverComboBox" prefWidth="250.0" promptText="Select Server" />
-                        <Label text="Nickname:" />
-                        <TextField fx:id="nicknameField" promptText="Enter nickname" />
-                        <Button fx:id="connectButton" mnemonicParsing="false" onAction="#handleConnectButton" text="Connect" />
-                        <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refresh Servers" />
+                        <Label text="Tipo" />
+                        <ComboBox fx:id="serverComboBox" prefWidth="250.0" promptText="Metódo de notificación" />
+                        <Label text=" Header" />
+                        <TextField fx:id="MensajeField" promptText="Mensaje" />
+                      <Button fx:id="sendButton" disable="true" mnemonicParsing="false" onAction="#EnviarNotificación" text="Header" />
+                        <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#handleRefreshButton" text="Refrescar" />
                     </children>
                 </HBox>
-                <Label fx:id="statusLabel" text="Status: Disconnected" />
+                <Label fx:id="statusLabel" text="Estado Mensaje:  No enviado" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -48,7 +48,7 @@
         <HBox alignment="CENTER_LEFT" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
                 <TextField fx:id="messageInput" onAction="#handleSendButton" prefHeight="26.0" prefWidth="676.0" promptText="Type message here..." HBox.hgrow="ALWAYS" />
-                <Button fx:id="sendButton" disable="true" mnemonicParsing="false" onAction="#handleSendButton" text="Send" />
+                  <Button fx:id="EnviarNotificaciónButton" mnemonicParsing="false" onAction="#handleSendButton" text="Enviar" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

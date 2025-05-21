@@ -1,6 +1,9 @@
 package co.edu.uniquindio.poo.notificador.Controllers;
 
 import co.edu.uniquindio.poo.notificador.Alert;
+import co.edu.uniquindio.poo.notificador.Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import lombok.Getter;
@@ -11,7 +14,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ControllerChat {
-    public ComboBox<String> serverComboBox;
+    public ComboBox<Object> serverComboBox;
     public TextField nicknameField;
     public Button connectButton;
     public Button refreshButton;
@@ -19,9 +22,11 @@ public class ControllerChat {
     public TextField messageInput;
     public Button sendButton;
     public TextArea chatArea;
+    public TextField MensajeField;
+    public Button EnviarNotificaciónButton;
 
 
-    public ControllerChat(ComboBox<String> serverComboBox, TextField nicknameField, Button connectButton, Button refreshButton, Label statusLabel, TextField messageInput, Button sendButton, TextArea textArea) {
+    public ControllerChat(ComboBox<Object> serverComboBox, TextField nicknameField, Button connectButton, Button refreshButton, Label statusLabel, TextField messageInput, Button sendButton, TextArea textArea) {
         this.serverComboBox = serverComboBox;
         this.nicknameField = nicknameField;
         this.connectButton = connectButton;
@@ -33,28 +38,6 @@ public class ControllerChat {
     }
 
 
-    public void handleConnectButton(ActionEvent actionEvent) {
-        switch (serverComboBox.getSelectionModel().getSelectedItem()) {
-            case "Servidor 1":
-                statusLabel.setText("Conectado a Servidor 1");
-                break;
-            case "Servidor 2":
-                statusLabel.setText("Conectado a Servidor 2");
-                break;
-            case "Servidor 3":
-                statusLabel.setText("Conectado a Servidor 3");
-                break;
-            case "Servidor 4":
-                statusLabel.setText("Conectado a Servidor 4");
-                break;
-            case "Servidor 5":
-                statusLabel.setText("Conectado a Servidor 5");
-                break;
-            default:
-                Alert.showAlert("Error", "No se ha seleccionado un servidor");
-        }
-    }
-
     public void handleRefreshButton(ActionEvent actionEvent) {
         serverComboBox.getItems().clear();
         inicializarCombobox();
@@ -62,21 +45,58 @@ public class ControllerChat {
     }
 
     public void handleSendButton(ActionEvent actionEvent) {
+        String tipoDeNotificacion = serverComboBox.getSelectionModel().getSelectedItem().toString();
         String message = messageInput.getText();
+        message = "Este mensaje sera enviado por: " + tipoDeNotificacion + " " + message;
         if (message.isEmpty()) {
             Alert.showAlert("Error", "No se puede enviar un mensaje vacío");
         } else {
-            chatArea.appendText(nicknameField.getText() + ": " + message + "\n");
-            messageInput.clear();
+            switch (tipoDeNotificacion) {
+                case "email":
+                    for (User user : UserManager.getInstance().getUsers()) {
+                        EmailNotification emailNotification = new EmailNotification();
+                        emailNotification.sendNotification(user, message);
+                        chatArea.appendText(MensajeField.getText() + ": Estimado " + user.getName() + " El dia de hoy tiene usted una notificación que dice lo siguiente " + message + "\n");
+                        messageInput.clear();
+                    }
+                    break;
+                case "sms":
+
+                for (User user : UserManager.getInstance().getUsers()) {
+                    SMSNotification smsNotification = new SMSNotification();
+                    smsNotification.sendNotification(user, message);
+                    chatArea.appendText(MensajeField.getText() + ": Estimado " + user.getName() + " El dia de hoy tiene usted una notificación que dice lo siguiente " + message + "\n");
+                    messageInput.clear();
+                }
+                break;
+                case "push":
+                    for (User user : UserManager.getInstance().getUsers()) {
+                        PushNotification pushNotification = new PushNotification();
+                    pushNotification.sendNotification(user, message);
+                        chatArea.appendText(MensajeField.getText() + ": Estimado " + user.getName() + " El dia de hoy tiene usted una notificación que dice lo siguiente " + message + "\n");
+                        messageInput.clear();
+                    }
+                    break;
+            }
         }
     }
 
-    public void inicializarCombobox(){
+    public void EnviarNotificación(ActionEvent actionEvent) {
 
-        serverComboBox.getItems().add("Servidor 1");
-        serverComboBox.getItems().add("Servidor 2");
-        serverComboBox.getItems().add("Servidor 3");
-        serverComboBox.getItems().add("Servidor 4");
-        serverComboBox.getItems().add("Servidor 5");
+        String header = MensajeField.getText();
+
     }
+
+    public void inicializarCombobox() {
+
+
+        ObservableList<Object> observableList = FXCollections.observableArrayList("push", "email", "sms");
+        serverComboBox.setItems(observableList);
+
+    }
+
+
 }
+
+
+
