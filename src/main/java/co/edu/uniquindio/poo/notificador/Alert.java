@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.notificador.Model;
+package co.edu.uniquindio.poo.notificador;
 
 public class Alert {
     private String title;

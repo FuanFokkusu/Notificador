@@ -1,6 +1,6 @@
 package co.edu.uniquindio.poo.notificador.Controllers;
 
-import co.edu.uniquindio.poo.notificador.Model.Alert;
+import co.edu.uniquindio.poo.notificador.Alert;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import lombok.Getter;
@@ -56,9 +56,19 @@ public class ControllerChat {
     }
 
     public void handleRefreshButton(ActionEvent actionEvent) {
+        serverComboBox.getItems().clear();
+        inicializarCombobox();
+        Alert.showAlert("Refrescar", "Lista de servidores actualizada");
     }
 
     public void handleSendButton(ActionEvent actionEvent) {
+        String message = messageInput.getText();
+        if (message.isEmpty()) {
+            Alert.showAlert("Error", "No se puede enviar un mensaje vacío");
+        } else {
+            chatArea.appendText(nicknameField.getText() + ": " + message + "\n");
+            messageInput.clear();
+        }
     }
 
     public void inicializarCombobox(){
