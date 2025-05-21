@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.notificador;
+cd package co.edu.uniquindio.poo.notificador;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -10,7 +10,11 @@ module co.edu.uniquindio.poo.notificador {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires
 
     opens co.edu.uniquindio.poo.notificador to javafx.fxml;
+    opens co.edu.uniquindio.poo.notificador.controladores to javafx.fxml;
+    opens co.edu.uniquindio.poo.notificador.modelos to javafx.fxml;
+
     exports co.edu.uniquindio.poo.notificador;
 }
