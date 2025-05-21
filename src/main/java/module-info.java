@@ -13,6 +13,7 @@ module co.edu.uniquindio.poo.notificador {
     requires
 
     opens co.edu.uniquindio.poo.notificador to javafx.fxml;
+    requires static lombok;
     opens co.edu.uniquindio.poo.notificador.controladores to javafx.fxml;
     opens co.edu.uniquindio.poo.notificador.modelos to javafx.fxml;
 
